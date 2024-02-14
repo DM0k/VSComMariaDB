@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VSComMariaDB.Model;
 
@@ -10,9 +11,11 @@ using VSComMariaDB.Model;
 namespace VSComMariaDB.Migrations
 {
     [DbContext(typeof(_DbContext))]
-    partial class _DbContextModelSnapshot : ModelSnapshot
+    [Migration("20240209235808_ProdUpdate")]
+    partial class ProdUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,6 +52,7 @@ namespace VSComMariaDB.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
@@ -58,6 +62,7 @@ namespace VSComMariaDB.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Imagem")
+                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("varchar(1000)");
 
@@ -69,8 +74,9 @@ namespace VSComMariaDB.Migrations
                     b.Property<bool>("Novidade")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<string>("Preco")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
