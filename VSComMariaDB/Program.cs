@@ -2,6 +2,9 @@ using VSComMariaDB.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
+builder.Services.AddDbContext<_DbContext>();
+
 // Add services to the container.
 builder.Services.AddDbContext<_DbContext>();
 builder.Services.AddControllers();
@@ -10,6 +13,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyOrigin()
+           .AllowAnyHeader();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

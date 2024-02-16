@@ -16,34 +16,84 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-8">
+            <div class="col-8 mb-3">
                 <label class="form-label" for="txtNome">Nome</label>
                 <input class="form-control" id="txtNome" type="text">
 
             </div>
 
-            <div class="col-4">
-                <label class="form-label" for="txtNome">Preço</label>
-                <input class="form-control" id="txtNome" type="text">
+            <div class="col-4 mb-3">
+                <label class="form-label" for="txtPreco">Preço</label>
+                <input class="form-control" id="txtPreco" type="text">
 
             </div>
 
-            <div class="col-12">
-                <label class="form-label" for="txtNome">Descrição</label>
-                <textarea class="form-control" id="txtNome"  rows="3"></textarea>
+            <div class="col-12 mb-3">
+                <label class="form-label" for="txtDescricao">Descrição</label>
+                <textarea class="form-control" id="txtDescricao" rows="3"></textarea>
 
             </div>
 
 
-            <div class="col-12">
-                <label class="form-label" for="txtNome">URL Imagem</label>
-                <input class="form-control" id="txtNome" type="tex">
+            <div class="col-12 mb-3">
+                <label class="form-label" for="txtImagem">URL Imagem</label>
+                <input class="form-control" id="txtImagem" type="text">
 
+            </div>
+
+            <div class="col-6 mb-3">
+                <input class="form-check-input" id="txtNovidade" type="checkbox">
+                <label class="form-check-label" for="txtNovidade">Novidade</label>
+
+            </div>
+
+            <div class="col-6 mb-3">
+                <input class="form-check-input" id="txtDisponivel" type="checkbox">
+                <label class="form-check-label" for="txtDisponivel">Disponível</label>
+
+            </div>
+
+            <div class="col-12 mb-3">
+                <button class="btn btn-primary" onclick="salvarDados()">Salvar</button>
             </div>
 
         </div>
     </div>
 
 </body>
+
+<script>
+    function salvarDados() {
+
+        const dadosProduto = [{
+            Id: 0,
+            Nome: document.getElementById("txtNome").value,
+            Descricao: document.getElementById("txtDescricao").value,
+            Imagem: document.getElementById("txtImagem").value,
+            Preco: document.getElementById("txtPreco").value,
+            Disponivel: document.getElementById("txtDisponivel").checked,
+            Novidade: document.getElementById("txtNovidade").checked
+        }]
+
+        console.log(dadosProduto)
+
+        const enderco = "https://localhost:7017/api/Produto/InsertProdAsync";
+
+        fetch(enderco, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dadosProduto),
+        })
+            .then(response => response.json())
+            .then(dadosProduto => console.log(dadosProduto))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    };
+
+</script>
 
 </html>
